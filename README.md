@@ -3,6 +3,7 @@ This repository contains the case resolution for job opportunity in 99
 
 ## Part I - Technical
 
+First, I checked for duplicate IDs in the trip table, the answer is NO! So let's go.
 
 ### 1. What is the average trip cost of holidays? How does it compare to non-holidays?
 ~~~sql
@@ -28,7 +29,7 @@ FROM trip
 JOIN passenger ON (trip.passenger_id = passenger.id AND passenger.first_call_time = trip.call_time)
 ~~~
 
-#### Answer: *23.52 minutes*
+#### Answer: **23.52 minutes**
 
 ### 3. Find the average number of trips per driver for every week day.
 Here I have two differents approaches:
@@ -142,3 +143,57 @@ ORDER BY 1
 
 
 ## Part II - Analytical
+
+### 1. Let's say it's 2019-09-23 and a new Operations manager for The Shire was just hired. She has 5 minutes during the Ops weekly meeting to present an overview of the business in the city, and since she's just arrived, she asked your help to do it. What would you prepare for this 5 minutes presentation? [Please provide 1-2 slides with your idea.](https://duckduckgo.com)
+
+
+### 2. She also mentioned she has a budget to invest in promoting the business. What kind of metrics and performance indicators would you use in order to help her decide if she should invest it into the passenger side or the driver side? Extra point if you provide data-backed recommendations.
+
+Following the number of passenger by week to invest in **bonus weekly per user**.
+~~~sql
+WITH trips_per_month AS
+(SELECT 
+  week,
+  count(distinct passenger_id) AS passenger_id
+FROM (
+    SELECT DATE(DATE_TRUNC('week', call_time)) AS week, passenger_id FROM trip
+    JOIN city ON CAST(trip.city_id AS bigint) = city.id
+WHERE city.name = 'The Shire') AS trip
+GROUP BY 1)
+
+SELECT 
+  week,
+  passenger_id,
+  ((passenger_id - CAST(LAG(passenger_id, 1) OVER (ORDER BY week) AS decimal)) / CAST(LAG(passenger_id, 1) OVER (ORDER BY week) AS decimal))*100 AS perc_growth
+FROM trips_per_month
+~~~
+
+And follow the **average of trips by driver**: here we can offer benefits and bonus for the firts 10 drivers with higher numbers of trips per week.
+
+~~~sql
+WITH trips_per_month AS
+(SELECT 
+  week,
+  avg(distinct sum_trip) AS trip
+FROM (
+    SELECT DATE(DATE_TRUNC('week', call_time)) AS week, driver_id, count(trip.id) as sum_trip FROM trip
+    JOIN city ON CAST(trip.city_id AS bigint) = city.id
+WHERE city.name = 'The Shire' group by 1, 2) AS trip
+GROUP BY 1)
+
+SELECT 
+  week,
+  trip,
+  ((trip - CAST(LAG(trip, 1) OVER (ORDER BY week) AS decimal)) / CAST(LAG(trip, 1) OVER ( ORDER BY week) AS decimal))*100 AS perc_growth
+FROM trips_per_month
+~~~
+
+### 3. One month later, she comes back, super grateful for all the helpful insights you have given her. And says she is anticipating a driver supply shortage due to a major concert that is going to take place the next day and also a 3 day city holiday that is coming the next month. What would you do to help her analyze the best course of action to either prevent or minimize the problem in each case?
+
+In this case, I would like to analyze if there is history where whe obtained a major concert day and holidays, then we could compare the number of calls/trips and prepare thinking about price increase and bonus to available drivers.
+
+### Optional. We want to build up a model to predict “Possible Churn Users” (e.g.: no trips in the past 4 weeks). List all features that you can think about and the data mining or machine learning model or other methods you may use for this case.
+
+Logistic regression is a statistical analysis method that could to predict "possible churn users". We would need a data with churn users to train the model and some variables like
+number of trips by week per user, trip fare, waiting time, first call time, last call time.
+ 
