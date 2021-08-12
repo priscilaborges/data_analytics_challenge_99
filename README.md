@@ -191,7 +191,7 @@ FROM trips_per_month
 
 ### 3. One month later, she comes back, super grateful for all the helpful insights you have given her. And says she is anticipating a driver supply shortage due to a major concert that is going to take place the next day and also a 3 day city holiday that is coming the next month. What would you do to help her analyze the best course of action to either prevent or minimize the problem in each case?
 
-In this case, I would like to analyze if there is history where whe obtained a major concert day and holidays, then we could compare the number of calls/trips and prepare thinking about price increase and bonus to available drivers.
+In this case, I would like to analyze if there is historic where we obtained a major concert day and holidays, then we could compare the number of calls/trips and prepare thinking about price increase and bonus to available drivers.
 
 ### Optional. We want to build up a model to predict “Possible Churn Users” (e.g.: no trips in the past 4 weeks). List all features that you can think about and the data mining or machine learning model or other methods you may use for this case.
 
