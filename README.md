@@ -33,7 +33,7 @@ JOIN passenger ON (trip.passenger_id = passenger.id AND passenger.first_call_tim
 
 ### 3. Find the average number of trips per driver for every week day.
 Here I have two differents approaches:
-We have 2,318,357 diferents drivers, I think we have to see the average number of trips by driver one by one OR the average total. 
+We have 2,318,357 diferents drivers, the average total OR the average number of trips by driver one by one. 
 For the first approach:
 ~~~sql
 SELECT
@@ -150,7 +150,7 @@ ORDER BY 1
 
 ### 2. She also mentioned she has a budget to invest in promoting the business. What kind of metrics and performance indicators would you use in order to help her decide if she should invest it into the passenger side or the driver side? Extra point if you provide data-backed recommendations.
 
-Following the number of passenger by week to invest in **bonus weekly per user**.
+Following the number of passenger per week to invest in **bonus weekly per user**.
 ~~~sql
 WITH trips_per_month AS
 (SELECT 
@@ -169,7 +169,7 @@ SELECT
 FROM trips_per_month
 ~~~
 
-And follow the **average of trips by driver**: here we can offer benefits and bonus for the firts 10 drivers with higher numbers of trips per week.
+And follow the **average of trips per driver**: here we can offer benefits and bonus for the firts 10 drivers with higher numbers of trips per week.
 
 ~~~sql
 WITH trips_per_month AS
@@ -196,5 +196,5 @@ In this case, I would like to analyze if there is historic where we obtained a m
 ### Optional. We want to build up a model to predict “Possible Churn Users” (e.g.: no trips in the past 4 weeks). List all features that you can think about and the data mining or machine learning model or other methods you may use for this case.
 
 Logistic regression is a statistical analysis method that could to predict "possible churn users". We would need a data with churn users to train the model and some variables like
-number of trips by week per user, trip fare, waiting time, first call time, last call time.
+number of trips per week per user, trip fare, waiting time, first call time, last call time.
  
