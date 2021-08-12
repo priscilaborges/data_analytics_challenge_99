@@ -101,6 +101,7 @@ FROM trips_per_month
 #### Answer:
 
 ![image](https://user-images.githubusercontent.com/61919405/129116713-38073f98-2980-4aba-a394-d26aa733fc64.png)
+
 Obs.: September is not finished. 
 
 
