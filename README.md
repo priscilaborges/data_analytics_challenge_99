@@ -144,7 +144,8 @@ ORDER BY 1
 
 ## Part II - Analytical
 
-### 1. Let's say it's 2019-09-23 and a new Operations manager for The Shire was just hired. She has 5 minutes during the Ops weekly meeting to present an overview of the business in the city, and since she's just arrived, she asked your help to do it. What would you prepare for this 5 minutes presentation? [Please provide 1-2 slides with your idea.](https://duckduckgo.com)
+### 1. Let's say it's 2019-09-23 and a new Operations manager for The Shire was just hired. She has 5 minutes during the Ops weekly meeting to present an overview of the business in the city, and since she's just arrived, she asked your help to do it. What would you prepare for this 5 minutes presentation?
+[Weekly Follow-up Presentation](https://github.com/priscilaborges/data_analytics_challenge_99/blob/main/OPs%20Weekly.pptx)
 
 
 ### 2. She also mentioned she has a budget to invest in promoting the business. What kind of metrics and performance indicators would you use in order to help her decide if she should invest it into the passenger side or the driver side? Extra point if you provide data-backed recommendations.
